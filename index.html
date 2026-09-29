@@ -1,185 +1,560 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Random Emporium</title>
-  <meta name="description" content="A curiosity shop of random things: facts, fortunes, dice, doodles, and more.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+  <title>Random Emporium</title>
+  <meta name="description" content="31 booths of beautifully useless randomness: generators, games, generative art, fortunes and more.">
+  <meta name="theme-color" content="#0b0a14">
+  <meta property="og:title" content="Random Emporium">
+  <meta property="og:description" content="31 booths of beautifully useless randomness.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    // Apply the saved theme before first paint to avoid a flash.
+    try { const t = JSON.parse(localStorage.getItem("emporium-theme")); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">Est. just now · Open 24/7 · No refunds</p>
-      <h1>The <span class="rainbow">Random</span> Emporium</h1>
-      <p class="tagline">A curiosity shop of things nobody asked for. Step right up!</p>
-      <p class="visitor">You are visitor number <strong id="visitorCount">???</strong> (this number is made up)</p>
+  <a class="skip" href="#booths">Skip to booths</a>
+
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    <div class="grid-lines"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="logo" href="#top" aria-label="Random Emporium home">
+        <span class="logo-mark"><i data-lucide="dices"></i></span>
+        <span class="logo-text">Random<span>Emporium</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#sec-generators">Generators</a>
+        <a href="#sec-games">Games</a>
+        <a href="#sec-art">Art &amp; Toys</a>
+        <a href="#sec-mystic">Mystic</a>
+        <a href="#sec-knowledge">Knowledge</a>
+        <a href="#report">Report</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="search-btn" id="openCmdk" type="button" aria-label="Search booths">
+          <i data-lucide="search"></i><span>Search booths…</span><kbd>⌘K</kbd>
+        </button>
+        <button class="icon-btn" id="soundToggle" type="button" aria-label="Toggle sound"><i data-lucide="volume-2"></i></button>
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme"><i data-lucide="sun"></i></button>
+        <button class="btn primary sm" data-surprise type="button"><i data-lucide="shuffle"></i><span>Surprise me</span></button>
+      </div>
     </div>
-    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">🌙</button>
   </header>
 
-  <nav class="booth-nav" aria-label="Booths">
-    <a href="#facts">Facts</a>
-    <a href="#fortune">Fortune</a>
-    <a href="#eightball">8-Ball</a>
-    <a href="#excuse">Excuses</a>
-    <a href="#names">Names</a>
-    <a href="#palette">Colors</a>
-    <a href="#dice">Dice</a>
-    <a href="#rps">RPS</a>
-    <a href="#doodle">Doodle</a>
-    <a href="#emoji">Emoji Pit</a>
-    <a href="#reaction">Reflexes</a>
-    <a href="#word">Word</a>
-    <a href="#guestbook">Guestbook</a>
-  </nav>
-
-  <main class="grid">
-    <section class="booth" id="facts" data-trigger="factBtn">
-      <h2><span aria-hidden="true">🧠</span> Random Fact Machine</h2>
-      <p class="output big" id="factOut" aria-live="polite">Press the button to learn something you'll repeat at parties.</p>
-      <button class="btn" id="factBtn" type="button">Dispense fact</button>
-    </section>
-
-    <section class="booth" id="fortune" data-trigger="cookie">
-      <h2><span aria-hidden="true">🥠</span> Fortune Cookie</h2>
-      <button class="cookie" id="cookie" type="button" aria-label="Crack the fortune cookie">🥠</button>
-      <div class="fortune-slip" id="fortuneOut" aria-live="polite" hidden>
-        <p id="fortuneText"></p>
-        <p class="lucky">Lucky numbers: <span id="luckyNums"></span></p>
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-copy">
+        <a class="pill" href="#report"><span class="dot"></span> v2.0 is live: sound, achievements &amp; 18 new booths <i data-lucide="arrow-right"></i></a>
+        <h1>The internet's finest<br><span class="grad" id="heroWord">randomness</span><br>emporium.</h1>
+        <p class="lede">31 hand-crafted booths of beautifully useless chaos. Generate startup ideas, spin wheels, draw tarot, paint pixels, compose melodies and absolutely nothing productive.</p>
+        <div class="cta-row">
+          <button class="btn primary lg" data-surprise type="button"><i data-lucide="sparkles"></i> Surprise me</button>
+          <a class="btn ghost lg" href="#booths"><i data-lucide="layout-grid"></i> Browse booths</a>
+        </div>
+        <dl class="stats">
+          <div><dt>Booths</dt><dd class="mono"><span data-count="31">0</span></dd></div>
+          <div><dt>Facts</dt><dd class="mono"><span data-count-from="facts">0</span></dd></div>
+          <div><dt>Insult combos</dt><dd class="mono"><span data-count="125000">0</span></dd></div>
+          <div><dt>Entropy</dt><dd class="mono">∞</dd></div>
+        </dl>
       </div>
-      <p class="hint">Click the cookie to crack it.</p>
-    </section>
-
-    <section class="booth" id="eightball" data-trigger="shakeBtn">
-      <h2><span aria-hidden="true">🎱</span> Magic 8-Ball</h2>
-      <div class="ball" id="ball"><div class="ball-window"><span id="ballOut">8</span></div></div>
-      <form class="row" id="ballForm">
-        <label class="sr-only" for="question">Your question</label>
-        <input id="question" type="text" placeholder="Ask a yes/no question…" autocomplete="off">
-        <button class="btn" id="shakeBtn" type="submit">Shake</button>
-      </form>
-    </section>
-
-    <section class="booth" id="excuse" data-trigger="excuseBtn">
-      <h2><span aria-hidden="true">🙈</span> Excuse Generator</h2>
-      <p class="output" id="excuseOut" aria-live="polite">Need to get out of something? We've got you.</p>
-      <button class="btn" id="excuseBtn" type="button">Generate excuse</button>
-    </section>
-
-    <section class="booth" id="names" data-trigger="nameBtn">
-      <h2><span aria-hidden="true">🏷️</span> Name Generator</h2>
-      <div class="segmented" role="radiogroup" aria-label="Name type">
-        <label><input type="radio" name="nameMode" value="band" checked><span>Band</span></label>
-        <label><input type="radio" name="nameMode" value="pet"><span>Pet</span></label>
-        <label><input type="radio" name="nameMode" value="wizard"><span>Wizard</span></label>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit">
+          <span class="chip c1"><i data-lucide="dices"></i></span>
+          <span class="chip c2"><i data-lucide="sparkles"></i></span>
+          <span class="chip c3"><i data-lucide="music"></i></span>
+          <span class="chip c4"><i data-lucide="palette"></i></span>
+          <span class="chip c5"><i data-lucide="rocket"></i></span>
+          <span class="chip c6"><i data-lucide="ghost"></i></span>
+        </div>
+        <div class="scene">
+          <div class="cube" id="heroCube">
+            <div class="face f1"><i></i></div>
+            <div class="face f2"><i></i><i></i></div>
+            <div class="face f3"><i></i><i></i><i></i></div>
+            <div class="face f4"><i></i><i></i><i></i><i></i></div>
+            <div class="face f5"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="face f6"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <div class="hero-glow"></div>
       </div>
-      <p class="output big" id="nameOut" aria-live="polite">—</p>
-      <button class="btn" id="nameBtn" type="button">Name it</button>
     </section>
 
-    <section class="booth" id="palette" data-trigger="paletteBtn">
-      <h2><span aria-hidden="true">🎨</span> Color of the Moment</h2>
-      <div class="swatches" id="swatches"></div>
-      <p class="hint" id="paletteHint">Click a swatch to copy its hex code.</p>
-      <button class="btn" id="paletteBtn" type="button">New palette</button>
-    </section>
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-label="Random facts ticker">
+      <div class="marquee-track" id="marquee"></div>
+    </div>
 
-    <section class="booth" id="dice" data-trigger="rollBtn">
-      <h2><span aria-hidden="true">🎲</span> Dice &amp; Coin Tray</h2>
-      <div class="row wrap">
-        <label for="dieType">Die</label>
-        <select id="dieType">
-          <option value="4">d4</option>
-          <option value="6" selected>d6</option>
-          <option value="8">d8</option>
-          <option value="10">d10</option>
-          <option value="12">d12</option>
-          <option value="20">d20</option>
-        </select>
-        <button class="btn" id="rollBtn" type="button">Roll</button>
-        <button class="btn alt" id="coinBtn" type="button">Flip coin</button>
+    <!-- ============ FILTER BAR ============ -->
+    <div class="toolbar" id="booths">
+      <div class="chips" role="tablist" aria-label="Filter booths by category">
+        <button class="chip-btn active" data-filter="all" type="button" role="tab" aria-selected="true"><i data-lucide="layout-grid"></i>All</button>
+        <button class="chip-btn" data-filter="generators" type="button" role="tab" aria-selected="false"><i data-lucide="wand-sparkles"></i>Generators</button>
+        <button class="chip-btn" data-filter="games" type="button" role="tab" aria-selected="false"><i data-lucide="gamepad-2"></i>Games</button>
+        <button class="chip-btn" data-filter="art" type="button" role="tab" aria-selected="false"><i data-lucide="palette"></i>Art &amp; Toys</button>
+        <button class="chip-btn" data-filter="mystic" type="button" role="tab" aria-selected="false"><i data-lucide="moon-star"></i>Mystic</button>
+        <button class="chip-btn" data-filter="knowledge" type="button" role="tab" aria-selected="false"><i data-lucide="book-open"></i>Knowledge</button>
       </div>
-      <div class="die" id="dieOut" aria-live="polite">?</div>
-      <p class="hint" id="diceHistory">History: —</p>
-    </section>
+      <label class="filter-search">
+        <i data-lucide="search"></i>
+        <span class="sr-only">Filter booths</span>
+        <input id="filterInput" type="search" placeholder="Filter booths…" autocomplete="off">
+        <span class="count mono" id="filterCount"></span>
+      </label>
+    </div>
 
-    <section class="booth" id="rps" data-trigger="rpsRandom">
-      <h2><span aria-hidden="true">✊</span> Rock Paper Scissors</h2>
-      <div class="row center">
-        <button class="btn icon" data-move="rock" type="button" aria-label="Rock">🪨</button>
-        <button class="btn icon" data-move="paper" type="button" aria-label="Paper">📄</button>
-        <button class="btn icon" data-move="scissors" type="button" aria-label="Scissors">✂️</button>
-        <button class="btn icon alt" id="rpsRandom" type="button" aria-label="Random move">❓</button>
+    <!-- ============ GENERATORS ============ -->
+    <section class="cat" id="sec-generators" data-cat="generators">
+      <div class="cat-head">
+        <span class="eyebrow"><i data-lucide="wand-sparkles"></i> Generators</span>
+        <h2>Words nobody needed, generated instantly.</h2>
       </div>
-      <p class="output" id="rpsOut" aria-live="polite">Pick your weapon.</p>
-      <p class="score">You <strong id="rpsYou">0</strong> · Ties <strong id="rpsTie">0</strong> · Computer <strong id="rpsCpu">0</strong></p>
+      <div class="bento">
+        <article class="card wide" id="startup" data-cat="generators" data-icon="rocket" data-title="Startup Idea Generator" data-desc="Your next unicorn, in one click." data-trigger="startupBtn">
+          <p class="big-out" id="startupOut" aria-live="polite">Press the button to disrupt an industry.</p>
+          <p class="sub-out mono" id="startupVal"></p>
+          <div class="actions"><button class="btn primary" id="startupBtn" type="button"><i data-lucide="rocket"></i>Pitch me</button></div>
+        </article>
+
+        <article class="card" id="excuse" data-cat="generators" data-icon="shield-question" data-title="Excuse Generator" data-desc="Get out of anything." data-trigger="excuseBtn">
+          <p class="out" id="excuseOut" aria-live="polite">Need to get out of something? We've got you.</p>
+          <div class="actions"><button class="btn primary" id="excuseBtn" type="button"><i data-lucide="refresh-cw"></i>Generate</button></div>
+        </article>
+
+        <article class="card" id="names" data-cat="generators" data-icon="tag" data-title="Name Generator" data-desc="Band, pet or wizard." data-trigger="nameBtn">
+          <div class="segmented" role="radiogroup" aria-label="Name type">
+            <label><input type="radio" name="nameMode" value="band" checked><span>Band</span></label>
+            <label><input type="radio" name="nameMode" value="pet"><span>Pet</span></label>
+            <label><input type="radio" name="nameMode" value="wizard"><span>Wizard</span></label>
+          </div>
+          <p class="big-out" id="nameOut" aria-live="polite">—</p>
+          <div class="actions"><button class="btn primary" id="nameBtn" type="button"><i data-lucide="wand"></i>Name it</button></div>
+        </article>
+
+        <article class="card" id="superpower" data-cat="generators" data-icon="zap" data-title="Superpower Roulette" data-desc="Every gift has a catch." data-trigger="powerBtn">
+          <p class="big-out" id="powerOut" aria-live="polite">Spin for a superpower.</p>
+          <p class="sub-out" id="powerCatch"></p>
+          <div class="actions"><button class="btn primary" id="powerBtn" type="button"><i data-lucide="zap"></i>Grant power</button></div>
+        </article>
+
+        <article class="card" id="haiku" data-cat="generators" data-icon="feather" data-title="Haiku Machine" data-desc="5-7-5, guaranteed-ish." data-trigger="haikuBtn">
+          <blockquote class="haiku" id="haikuOut" aria-live="polite">—</blockquote>
+          <div class="actions"><button class="btn primary" id="haikuBtn" type="button"><i data-lucide="feather"></i>Compose</button></div>
+        </article>
+
+        <article class="card" id="insult" data-cat="generators" data-icon="drama" data-title="Shakespearean Insult" data-desc="Thou art a what now?" data-trigger="insultBtn">
+          <p class="big-out serif" id="insultOut" aria-live="polite">Thou art…</p>
+          <div class="actions"><button class="btn primary" id="insultBtn" type="button"><i data-lucide="drama"></i>Insult me</button></div>
+        </article>
+
+        <article class="card" id="recipe" data-cat="generators" data-icon="chef-hat" data-title="Absurd Recipe" data-desc="Michelin stars not included." data-trigger="recipeBtn">
+          <h4 class="recipe-name" id="recipeName">—</h4>
+          <ol class="recipe" id="recipeOut" aria-live="polite"></ol>
+          <div class="actions"><button class="btn primary" id="recipeBtn" type="button"><i data-lucide="cooking-pot"></i>Cook</button></div>
+        </article>
+
+        <article class="card" id="passphrase" data-cat="generators" data-icon="key-round" data-title="Passphrase Generator" data-desc="Actually secure. Actually random." data-trigger="passBtn">
+          <div class="code-out mono" id="passOut" aria-live="polite">—</div>
+          <div class="row">
+            <label for="passLen" class="muted">Words</label>
+            <input type="range" id="passLen" min="3" max="8" value="4">
+            <span class="mono" id="passLenOut">4</span>
+          </div>
+          <p class="sub-out mono" id="passEntropy"></p>
+          <div class="actions">
+            <button class="btn primary" id="passBtn" type="button"><i data-lucide="refresh-cw"></i>Generate</button>
+            <button class="btn ghost" id="passCopy" type="button"><i data-lucide="copy"></i>Copy</button>
+          </div>
+        </article>
+
+        <article class="card wide" id="lorem" data-cat="generators" data-icon="text" data-title="Lorem Ipsum, but Worse" data-desc="Filler text with personality." data-trigger="loremBtn">
+          <div class="segmented" role="radiogroup" aria-label="Lorem flavor">
+            <label><input type="radio" name="loremMode" value="pirate" checked><span>Pirate</span></label>
+            <label><input type="radio" name="loremMode" value="hipster"><span>Hipster</span></label>
+            <label><input type="radio" name="loremMode" value="corporate"><span>Corporate</span></label>
+          </div>
+          <p class="lorem" id="loremOut" aria-live="polite"></p>
+          <div class="actions">
+            <button class="btn primary" id="loremBtn" type="button"><i data-lucide="refresh-cw"></i>Regenerate</button>
+            <button class="btn ghost" id="loremCopy" type="button"><i data-lucide="copy"></i>Copy</button>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section class="booth wide" id="doodle" data-trigger="doodleRandom">
-      <h2><span aria-hidden="true">🖌️</span> Pixel Doodle Pad</h2>
-      <div class="doodle-wrap">
-        <div class="pixels" id="pixels" role="grid" aria-label="16 by 16 pixel canvas"></div>
-        <div class="doodle-tools">
-          <div class="pens" id="pens" aria-label="Pen colors"></div>
-          <button class="btn" id="doodleRandom" type="button">Randomize</button>
-          <button class="btn alt" id="doodleSym" type="button">Random symmetric</button>
-          <button class="btn ghost" id="doodleClear" type="button">Clear</button>
+    <!-- ============ GAMES ============ -->
+    <section class="cat" id="sec-games" data-cat="games">
+      <div class="cat-head">
+        <span class="eyebrow"><i data-lucide="gamepad-2"></i> Games</span>
+        <h2>Games of pure, unfiltered luck.</h2>
+      </div>
+      <div class="bento">
+        <article class="card wide tall" id="wheel" data-cat="games" data-icon="loader-pinwheel" data-title="Wheel of Fortune" data-desc="Edit the slices, then spin." data-trigger="wheelSpin">
+          <div class="wheel-wrap">
+            <div class="wheel-stage">
+              <canvas id="wheelCanvas" width="600" height="600" aria-label="Spinning wheel" role="img"></canvas>
+              <div class="wheel-pointer" aria-hidden="true"></div>
+              <button class="wheel-hub" id="wheelSpin" type="button" aria-label="Spin the wheel">SPIN</button>
+            </div>
+            <div class="wheel-side">
+              <label class="muted" for="wheelEntries">Slices (one per line)</label>
+              <textarea id="wheelEntries" rows="7">Pizza
+Tacos
+Sushi
+Burgers
+Ramen
+Salad
+Pancakes
+Mystery box</textarea>
+              <p class="big-out" id="wheelOut" aria-live="polite">Spin to decide your fate.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" id="eightball" data-cat="games" data-icon="circle-help" data-title="Magic 8-Ball" data-desc="Ask a yes/no question." data-trigger="shakeBtn">
+          <div class="ball" id="ball"><div class="ball-window"><span id="ballOut">8</span></div></div>
+          <form class="row" id="ballForm">
+            <label class="sr-only" for="question">Your question</label>
+            <input id="question" type="text" placeholder="Will I be rich?" autocomplete="off">
+            <button class="btn primary" id="shakeBtn" type="submit">Shake</button>
+          </form>
+        </article>
+
+        <article class="card" id="dice" data-cat="games" data-icon="dice-5" data-title="Dice &amp; Coin Tray" data-desc="d4 through d20, or heads/tails." data-trigger="rollBtn">
+          <div class="row">
+            <label class="sr-only" for="dieType">Die type</label>
+            <select id="dieType">
+              <option value="4">d4</option><option value="6" selected>d6</option><option value="8">d8</option>
+              <option value="10">d10</option><option value="12">d12</option><option value="20">d20</option>
+            </select>
+            <button class="btn primary" id="rollBtn" type="button"><i data-lucide="dices"></i>Roll</button>
+            <button class="btn ghost" id="coinBtn" type="button"><i data-lucide="coins"></i>Flip</button>
+          </div>
+          <div class="die mono" id="dieOut" aria-live="polite">?</div>
+          <p class="sub-out mono" id="diceHistory">History: —</p>
+        </article>
+
+        <article class="card" id="rps" data-cat="games" data-icon="hand-metal" data-title="Rock Paper Scissors" data-desc="Best the machine." data-trigger="rpsRandom">
+          <div class="rps-row">
+            <button class="rps-btn" data-move="rock" type="button" aria-label="Rock"><i data-lucide="gem"></i><span>Rock</span></button>
+            <button class="rps-btn" data-move="paper" type="button" aria-label="Paper"><i data-lucide="file"></i><span>Paper</span></button>
+            <button class="rps-btn" data-move="scissors" type="button" aria-label="Scissors"><i data-lucide="scissors"></i><span>Scissors</span></button>
+            <button class="rps-btn" id="rpsRandom" type="button" aria-label="Random move"><i data-lucide="shuffle"></i><span>Random</span></button>
+          </div>
+          <p class="out center" id="rpsOut" aria-live="polite">Pick your weapon.</p>
+          <div class="scoreboard mono">
+            <div><span id="rpsYou">0</span><small>You</small></div>
+            <div><span id="rpsTie">0</span><small>Ties</small></div>
+            <div><span id="rpsCpu">0</span><small>CPU</small></div>
+          </div>
+        </article>
+
+        <article class="card" id="wyr" data-cat="games" data-icon="split" data-title="Would You Rather" data-desc="Impossible choices." data-trigger="wyrNext">
+          <div class="wyr">
+            <button class="wyr-opt" id="wyrA" type="button"><span class="wyr-text"></span><span class="wyr-bar"></span><span class="wyr-pct mono"></span></button>
+            <span class="wyr-or">OR</span>
+            <button class="wyr-opt" id="wyrB" type="button"><span class="wyr-text"></span><span class="wyr-bar"></span><span class="wyr-pct mono"></span></button>
+          </div>
+          <div class="actions"><button class="btn ghost" id="wyrNext" type="button"><i data-lucide="skip-forward"></i>Next dilemma</button></div>
+        </article>
+
+        <article class="card" id="number" data-cat="games" data-icon="hash" data-title="Random Number" data-desc="Slot-machine style RNG." data-trigger="numBtn">
+          <div class="slot mono" id="numOut" aria-live="polite">000</div>
+          <div class="row">
+            <label class="sr-only" for="numMin">Min</label>
+            <input id="numMin" type="number" value="1" class="num-in">
+            <span class="muted">to</span>
+            <label class="sr-only" for="numMax">Max</label>
+            <input id="numMax" type="number" value="100" class="num-in">
+            <button class="btn primary" id="numBtn" type="button"><i data-lucide="dices"></i>Roll</button>
+          </div>
+        </article>
+
+        <article class="card" id="hilo" data-cat="games" data-icon="spade" data-title="Higher or Lower" data-desc="Guess the next card." data-trigger="hiloHigher">
+          <div class="playing-cards">
+            <div class="pcard" id="hiloCard">?</div>
+            <div class="hilo-info">
+              <p class="out" id="hiloOut" aria-live="polite">Will the next card be higher or lower?</p>
+              <p class="mono muted">Streak <strong id="hiloStreak">0</strong> · Best <strong id="hiloBest">0</strong></p>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn primary" id="hiloHigher" type="button"><i data-lucide="arrow-up"></i>Higher</button>
+            <button class="btn ghost" id="hiloLower" type="button"><i data-lucide="arrow-down"></i>Lower</button>
+          </div>
+        </article>
+
+        <article class="card" id="reaction" data-cat="games" data-icon="timer" data-title="Reflex Tester" data-desc="Wait for green. Click." data-trigger="">
+          <button class="reaction-pad idle" id="reactionPad" type="button">Click to start</button>
+          <p class="sub-out mono" id="reactionBest">Best: —</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ART & TOYS ============ -->
+    <section class="cat" id="sec-art" data-cat="art">
+      <div class="cat-head">
+        <span class="eyebrow"><i data-lucide="palette"></i> Art &amp; Toys</span>
+        <h2>Pixels, particles and procedural nonsense.</h2>
+      </div>
+      <div class="bento">
+        <article class="card wide tall" id="genart" data-cat="art" data-icon="brush" data-title="Generative Art" data-desc="A new flow-field painting every time." data-trigger="genBtn">
+          <canvas id="genCanvas" class="art-canvas" width="1200" height="640" aria-label="Generative artwork" role="img"></canvas>
+          <div class="actions">
+            <button class="btn primary" id="genBtn" type="button"><i data-lucide="sparkles"></i>New artwork</button>
+            <button class="btn ghost" id="genSave" type="button"><i data-lucide="download"></i>Download PNG</button>
+            <span class="mono muted" id="genSeed"></span>
+          </div>
+        </article>
+
+        <article class="card" id="palette" data-cat="art" data-icon="swatch-book" data-title="Color Palette" data-desc="Click a swatch to copy." data-trigger="paletteBtn">
+          <div class="swatches" id="swatches"></div>
+          <div class="actions"><button class="btn primary" id="paletteBtn" type="button"><i data-lucide="refresh-cw"></i>New palette</button></div>
+        </article>
+
+        <article class="card" id="gradient" data-cat="art" data-icon="blend" data-title="Gradient Generator" data-desc="Copy-ready CSS." data-trigger="gradBtn">
+          <div class="grad-preview" id="gradPreview"></div>
+          <code class="code-out mono small" id="gradCode"></code>
+          <div class="actions">
+            <button class="btn primary" id="gradBtn" type="button"><i data-lucide="refresh-cw"></i>Generate</button>
+            <button class="btn ghost" id="gradCopy" type="button"><i data-lucide="copy"></i>Copy CSS</button>
+          </div>
+        </article>
+
+        <article class="card" id="melody" data-cat="art" data-icon="music" data-title="Melody Maker" data-desc="A random pentatonic tune." data-trigger="melodyBtn">
+          <div class="piano-roll" id="pianoRoll" aria-hidden="true"></div>
+          <div class="row">
+            <label for="melodyWave" class="sr-only">Waveform</label>
+            <select id="melodyWave">
+              <option value="triangle">Flute-ish</option>
+              <option value="square">8-bit</option>
+              <option value="sawtooth">Buzzy</option>
+              <option value="sine">Pure</option>
+            </select>
+            <button class="btn primary" id="melodyBtn" type="button"><i data-lucide="play"></i>Compose &amp; play</button>
+          </div>
+        </article>
+
+        <article class="card wide" id="doodle" data-cat="art" data-icon="grid-3x3" data-title="Pixel Doodle Pad" data-desc="Paint, or let chaos paint for you." data-trigger="doodleSym">
+          <div class="doodle-wrap">
+            <div class="pixels" id="pixels" role="grid" aria-label="16 by 16 pixel canvas"></div>
+            <div class="doodle-tools">
+              <div class="pens" id="pens" aria-label="Pen colors"></div>
+              <button class="btn primary" id="doodleSym" type="button"><i data-lucide="ghost"></i>Random sprite</button>
+              <button class="btn ghost" id="doodleRandom" type="button"><i data-lucide="shuffle"></i>Noise</button>
+              <button class="btn ghost" id="doodleClear" type="button"><i data-lucide="eraser"></i>Clear</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" id="life" data-cat="art" data-icon="grid-2x2" data-title="Game of Life" data-desc="Random seed, emergent chaos." data-trigger="lifeSeed">
+          <canvas id="lifeCanvas" class="art-canvas square" width="480" height="480" aria-label="Conway's Game of Life" role="img"></canvas>
+          <div class="actions">
+            <button class="btn primary" id="lifeSeed" type="button"><i data-lucide="sprout"></i>Seed</button>
+            <button class="btn ghost" id="lifeToggle" type="button"><i data-lucide="pause"></i>Pause</button>
+            <span class="mono muted" id="lifeGen">Gen 0</span>
+          </div>
+        </article>
+
+        <article class="card" id="maze" data-cat="art" data-icon="route" data-title="Maze Generator" data-desc="Recursive backtracker, live." data-trigger="mazeBtn">
+          <canvas id="mazeCanvas" class="art-canvas square" width="480" height="480" aria-label="Random maze" role="img"></canvas>
+          <div class="actions">
+            <button class="btn primary" id="mazeBtn" type="button"><i data-lucide="route"></i>New maze</button>
+            <button class="btn ghost" id="mazeSolve" type="button"><i data-lucide="map-pin"></i>Solve</button>
+          </div>
+        </article>
+
+        <article class="card wide" id="emoji" data-cat="art" data-icon="smile-plus" data-title="The Emoji Pit" data-desc="Physics, but make it silly. Click inside." data-trigger="emojiAdd">
+          <canvas id="emojiCanvas" aria-label="Bouncing emojis. Click to add more." role="img"></canvas>
+          <div class="actions">
+            <button class="btn primary" id="emojiAdd" type="button"><i data-lucide="plus"></i>Add 5</button>
+            <button class="btn ghost" id="emojiShake" type="button"><i data-lucide="activity"></i>Earthquake</button>
+            <button class="btn ghost" id="emojiClear" type="button"><i data-lucide="trash-2"></i>Empty</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ MYSTIC ============ -->
+    <section class="cat" id="sec-mystic" data-cat="mystic">
+      <div class="cat-head">
+        <span class="eyebrow"><i data-lucide="moon-star"></i> Mystic</span>
+        <h2>Consult forces beyond comprehension.</h2>
+      </div>
+      <div class="bento">
+        <article class="card wide" id="tarot" data-cat="mystic" data-icon="sparkles" data-title="Tarot-ish Reading" data-desc="Past, present, snack." data-trigger="tarotBtn">
+          <div class="tarot-row" id="tarotRow">
+            <div class="tarot"><div class="tarot-inner"><div class="tarot-back"><i data-lucide="sparkles"></i></div><div class="tarot-front"></div></div><span class="tarot-label">Past</span></div>
+            <div class="tarot"><div class="tarot-inner"><div class="tarot-back"><i data-lucide="moon"></i></div><div class="tarot-front"></div></div><span class="tarot-label">Present</span></div>
+            <div class="tarot"><div class="tarot-inner"><div class="tarot-back"><i data-lucide="sun"></i></div><div class="tarot-front"></div></div><span class="tarot-label">Future</span></div>
+          </div>
+          <div class="actions"><button class="btn primary" id="tarotBtn" type="button"><i data-lucide="wand-sparkles"></i>Draw three cards</button></div>
+        </article>
+
+        <article class="card" id="fortune" data-cat="mystic" data-icon="cookie" data-title="Fortune Cookie" data-desc="Crack it open." data-trigger="cookie">
+          <button class="cookie" id="cookie" type="button" aria-label="Crack the fortune cookie"><i data-lucide="cookie"></i></button>
+          <div class="fortune-slip" id="fortuneOut" aria-live="polite" hidden>
+            <p id="fortuneText"></p>
+            <p class="lucky mono">Lucky: <span id="luckyNums"></span></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ KNOWLEDGE ============ -->
+    <section class="cat" id="sec-knowledge" data-cat="knowledge">
+      <div class="cat-head">
+        <span class="eyebrow"><i data-lucide="book-open"></i> Knowledge</span>
+        <h2>Learn things you will never need.</h2>
+      </div>
+      <div class="bento">
+        <article class="card" id="facts" data-cat="knowledge" data-icon="brain" data-title="Random Fact Machine" data-desc="Ammo for awkward silences." data-trigger="factBtn">
+          <p class="big-out" id="factOut" aria-live="polite">Press the button to learn something you'll repeat at parties.</p>
+          <div class="actions"><button class="btn primary" id="factBtn" type="button"><i data-lucide="lightbulb"></i>Dispense fact</button></div>
+        </article>
+
+        <article class="card" id="word" data-cat="knowledge" data-icon="book-a" data-title="Word of the Moment" data-desc="Obscure vocabulary." data-trigger="wordBtn">
+          <p class="word" id="wordOut">—</p>
+          <p class="word-type" id="wordType"></p>
+          <p class="out" id="wordDef" aria-live="polite"></p>
+          <div class="actions"><button class="btn primary" id="wordBtn" type="button"><i data-lucide="refresh-cw"></i>Another</button></div>
+        </article>
+
+        <article class="card" id="cowsay" data-cat="knowledge" data-icon="terminal" data-title="cowsay" data-desc="A fact, delivered by a cow." data-trigger="cowBtn">
+          <pre class="terminal mono" id="cowOut" aria-live="polite"></pre>
+          <div class="actions"><button class="btn primary" id="cowBtn" type="button"><i data-lucide="terminal"></i>$ cowsay --random</button></div>
+        </article>
+
+        <article class="card wide" id="guestbook" data-cat="knowledge" data-icon="notebook-pen" data-title="Guestbook" data-desc="Saved only in your browser." data-trigger="">
+          <form class="row wrap" id="guestForm">
+            <label class="sr-only" for="guestName">Name</label>
+            <input id="guestName" type="text" placeholder="Your name" maxlength="40" autocomplete="off">
+            <label class="sr-only" for="guestMsg">Message</label>
+            <input id="guestMsg" type="text" placeholder="Leave a random message…" maxlength="140" autocomplete="off" required>
+            <button class="btn primary" type="submit"><i data-lucide="send"></i>Sign</button>
+          </form>
+          <ul class="guest-list" id="guestList"></ul>
+        </article>
+      </div>
+    </section>
+
+    <p class="empty" id="emptyState" hidden><i data-lucide="search-x"></i> No booths match that. Try "random" (they all are).</p>
+
+    <!-- ============ REPORT ============ -->
+    <section class="report" id="report">
+      <div class="cat-head">
+        <span class="eyebrow"><i data-lucide="chart-no-axes-column"></i> Your Randomness Report</span>
+        <h2>Analytics for absolutely nothing.</h2>
+        <p class="muted">Tracked only in your browser. We couldn't sell it even if we wanted to.</p>
+      </div>
+      <div class="report-grid">
+        <div class="kpi"><span class="kpi-label"><i data-lucide="mouse-pointer-click"></i> Total clicks</span><span class="kpi-val mono" id="kpiClicks">0</span></div>
+        <div class="kpi"><span class="kpi-label"><i data-lucide="store"></i> Booths tried</span><span class="kpi-val mono" id="kpiTried">0</span><div class="meter"><span id="kpiTriedBar"></span></div></div>
+        <div class="kpi"><span class="kpi-label"><i data-lucide="heart"></i> Favourite booth</span><span class="kpi-val small" id="kpiFav">—</span></div>
+        <div class="kpi"><span class="kpi-label"><i data-lucide="trophy"></i> Achievements</span><span class="kpi-val mono" id="kpiAch">0</span></div>
+        <div class="panel chart-panel">
+          <h3>Clicks by category</h3>
+          <div class="bars" id="catBars"></div>
+        </div>
+        <div class="panel ach-panel">
+          <h3>Achievements</h3>
+          <ul class="ach-list" id="achList"></ul>
         </div>
       </div>
-      <p class="hint">Click or drag to paint. Pick a color on the right.</p>
+      <div class="actions center"><button class="btn ghost" id="resetStats" type="button"><i data-lucide="rotate-ccw"></i>Reset my stats</button></div>
     </section>
 
-    <section class="booth wide" id="emoji" data-trigger="emojiAdd">
-      <h2><span aria-hidden="true">🌀</span> The Emoji Pit</h2>
-      <canvas id="emojiCanvas" aria-label="Bouncing emojis. Click to add more." role="img"></canvas>
-      <div class="row center">
-        <button class="btn" id="emojiAdd" type="button">Add 5 emojis</button>
-        <button class="btn alt" id="emojiShake" type="button">Earthquake!</button>
-        <button class="btn ghost" id="emojiClear" type="button">Empty the pit</button>
-      </div>
-    </section>
-
-    <section class="booth" id="reaction" data-trigger="reactionPad">
-      <h2><span aria-hidden="true">⚡</span> Reflex Tester</h2>
-      <button class="reaction-pad idle" id="reactionPad" type="button">Click to start</button>
-      <p class="hint" id="reactionBest">Best: —</p>
-    </section>
-
-    <section class="booth" id="word" data-trigger="wordBtn">
-      <h2><span aria-hidden="true">📖</span> Random Word</h2>
-      <p class="word" id="wordOut">—</p>
-      <p class="word-type" id="wordType"></p>
-      <p class="output" id="wordDef" aria-live="polite"></p>
-      <button class="btn" id="wordBtn" type="button">Another word</button>
-    </section>
-
-    <section class="booth wide" id="guestbook">
-      <h2><span aria-hidden="true">📝</span> Guestbook</h2>
-      <form class="row" id="guestForm">
-        <label class="sr-only" for="guestName">Name</label>
-        <input id="guestName" type="text" placeholder="Your name" maxlength="40" autocomplete="off">
-        <label class="sr-only" for="guestMsg">Message</label>
-        <input id="guestMsg" type="text" placeholder="Leave a random message…" maxlength="140" autocomplete="off" required>
-        <button class="btn" type="submit">Sign</button>
-      </form>
-      <ul class="guest-list" id="guestList"></ul>
-      <p class="hint">Entries are saved only in your browser. Nobody else can see them.</p>
+    <!-- ============ CTA ============ -->
+    <section class="cta-band">
+      <h2>Still here? Let fate decide.</h2>
+      <p class="muted">Press <kbd>R</kbd> anywhere for a random booth, or <kbd>?</kbd> for all shortcuts.</p>
+      <button class="btn primary lg" data-surprise type="button"><i data-lucide="shuffle"></i> Surprise me</button>
     </section>
   </main>
 
-  <button class="surprise" id="surpriseBtn" type="button">🎲 Surprise me</button>
-
+  <!-- ============ FOOTER ============ -->
   <footer class="footer">
-    <p>Made with randomness and a little HTML. Nothing here is useful. That's the point.</p>
-    <p class="hint" id="footerQuote"></p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="#top"><span class="logo-mark"><i data-lucide="dices"></i></span><span class="logo-text">Random<span>Emporium</span></span></a>
+        <p class="muted">Purveyors of fine, artisanal chaos since just now.</p>
+        <span class="status"><span class="dot"></span> All systems random</span>
+      </div>
+      <div class="footer-col">
+        <h4>Booths</h4>
+        <a href="#sec-generators">Generators</a>
+        <a href="#sec-games">Games</a>
+        <a href="#sec-art">Art &amp; Toys</a>
+        <a href="#sec-mystic">Mystic</a>
+        <a href="#sec-knowledge">Knowledge</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#report">Analytics</a>
+        <button class="linklike" type="button" data-joke="careers">Careers</button>
+        <button class="linklike" type="button" data-joke="pricing">Pricing</button>
+        <button class="linklike" type="button" data-joke="legal">Legal</button>
+      </div>
+      <form class="footer-news" id="newsForm">
+        <h4>Newsletter</h4>
+        <p class="muted">We'll send you nothing, weekly.</p>
+        <div class="row">
+          <label class="sr-only" for="newsEmail">Email</label>
+          <input id="newsEmail" type="email" placeholder="you@example.com" autocomplete="off">
+          <button class="btn primary" type="submit"><i data-lucide="send"></i></button>
+        </div>
+      </form>
+    </div>
+    <div class="footer-bottom">
+      <span class="muted">© <span id="year"></span> Random Emporium. No rights reserved. Icons by Lucide.</span>
+      <span class="muted mono" id="footerQuote"></span>
+    </div>
   </footer>
 
+  <!-- ============ COMMAND PALETTE ============ -->
+  <dialog class="cmdk" id="cmdk" aria-label="Search booths">
+    <div class="cmdk-search">
+      <i data-lucide="search"></i>
+      <input id="cmdkInput" type="text" placeholder="Jump to a booth…" autocomplete="off" aria-controls="cmdkList">
+      <kbd>esc</kbd>
+    </div>
+    <ul class="cmdk-list" id="cmdkList" role="listbox"></ul>
+    <div class="cmdk-foot mono"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open &amp; run</span></div>
+  </dialog>
+
+  <dialog class="keys" id="keys" aria-label="Keyboard shortcuts">
+    <h3><i data-lucide="keyboard"></i> Keyboard shortcuts</h3>
+    <ul>
+      <li><kbd>⌘</kbd><kbd>K</kbd> or <kbd>/</kbd><span>Search booths</span></li>
+      <li><kbd>R</kbd><span>Surprise me</span></li>
+      <li><kbd>T</kbd><span>Toggle theme</span></li>
+      <li><kbd>M</kbd><span>Mute / unmute</span></li>
+      <li><kbd>?</kbd><span>This dialog</span></li>
+      <li><kbd>↑↑↓↓←→←→BA</kbd><span>???</span></li>
+    </ul>
+    <form method="dialog"><button class="btn primary" type="submit">Got it</button></form>
+  </dialog>
+
+  <script src="vendor/lucide.min.js"></script>
   <script src="js/data.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/booths.js"></script>
+  <script src="js/booths-extra.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

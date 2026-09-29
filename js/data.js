@@ -158,3 +158,131 @@ window.EMPORIUM_DATA = {
 
   emojis: ["🦄", "🍕", "🐙", "🚀", "🌈", "🍩", "🐸", "👾", "🦖", "🌮", "🎈", "🪐", "🦆", "🍉", "⭐", "🧀"]
 };
+
+// ---------- v2 content ----------
+Object.assign(window.EMPORIUM_DATA, {
+  startup: {
+    a: ["Uber", "Tinder", "Netflix", "Airbnb", "Spotify", "LinkedIn", "Duolingo", "Slack", "Peloton", "Instagram"],
+    b: ["houseplants", "left socks", "haunted furniture", "pigeons", "leftover soup", "grandmas", "existential dread",
+      "bad haircuts", "lost TV remotes", "unsolicited advice", "rubber ducks", "tiny hats for cats", "napping", "puddles"],
+    c: ["but on the blockchain", "powered by AI", "as a subscription", "but it's only open on Tuesdays", "in the metaverse",
+      "with a loyalty program", "for enterprise", "but it's a podcast", "with NFTs nobody asked for", "but make it artisanal"]
+  },
+
+  superpowers: [
+    "You can fly", "You can talk to animals", "You're invisible", "You can teleport", "You can read minds",
+    "You have super strength", "You can stop time", "You can breathe underwater", "You can see 10 seconds into the future",
+    "You can shapeshift", "You control the weather", "You can pause and rewind music with your mind"
+  ],
+  drawbacks: [
+    "but only while holding a sandwich", "but only 2 cm off the ground", "but you sneeze glitter afterwards",
+    "but only on Mondays", "but only animals that are extremely rude", "but your clothes don't come with you",
+    "but you can only use it while humming the Jurassic Park theme", "but every use costs you one sock",
+    "but only when nobody is watching", "but you're always slightly damp", "but it has a 3-hour loading screen",
+    "but you must announce it loudly first"
+  ],
+
+  haiku: {
+    five: ["the fridge hums softly", "a cat on the keys", "morning coffee spills", "a pigeon judges",
+      "the wifi is down", "old socks, no partners", "the moon eats a cloud", "rain taps on the roof",
+      "my code compiles now", "a frog in a hat"],
+    seven: ["the toaster dreams of warm bread", "a lone sandwich waits for me",
+      "the dog pretends not to hear", "all my tabs open at once", "one spoon sings in the dark sink",
+      "the printer knows what it did", "I forgot why I came here", "the snail wins the race at last",
+      "my houseplant sighs a green sigh", "the kettle whistles sadly"]
+  },
+
+  insults: {
+    a: ["artless", "bawdy", "beslubbering", "bootless", "churlish", "cockered", "clouted", "craven", "currish",
+      "dankish", "dissembling", "droning", "errant", "fawning", "fobbing", "froward", "frothy", "gleeking",
+      "goatish", "gorbellied", "impertinent", "infectious", "jarring", "loggerheaded", "lumpish", "mammering",
+      "mangled", "mewling", "paunchy", "pribbling", "puking", "puny", "qualling", "rank", "reeky", "roguish",
+      "ruttish", "saucy", "spleeny", "spongy", "surly", "tottering", "unmuzzled", "vain", "venomed", "villainous",
+      "warped", "wayward", "weedy", "yeasty"],
+    b: ["base-court", "bat-fowling", "beef-witted", "beetle-headed", "boil-brained", "clapper-clawed",
+      "clay-brained", "common-kissing", "crook-pated", "dismal-dreaming", "dizzy-eyed", "doghearted",
+      "dread-bolted", "earth-vexing", "elf-skinned", "fat-kidneyed", "fen-sucked", "flap-mouthed",
+      "fly-bitten", "folly-fallen", "fool-born", "full-gorged", "guts-griping", "half-faced", "hasty-witted",
+      "hedge-born", "hell-hated", "idle-headed", "ill-breeding", "ill-nurtured", "knotty-pated", "milk-livered",
+      "motley-minded", "onion-eyed", "plume-plucked", "pottle-deep", "pox-marked", "reeling-ripe",
+      "rough-hewn", "rude-growing", "rump-fed", "shard-borne", "sheep-biting", "spur-galled", "swag-bellied",
+      "tardy-gaited", "tickle-brained", "toad-spotted", "unchin-snouted", "weather-bitten"],
+    c: ["apple-john", "baggage", "barnacle", "bladder", "boar-pig", "bugbear", "bum-bailey", "canker-blossom",
+      "clack-dish", "clotpole", "coxcomb", "codpiece", "death-token", "dewberry", "flap-dragon", "flax-wench",
+      "flirt-gill", "foot-licker", "fustilarian", "giglet", "gudgeon", "haggard", "harpy", "hedge-pig",
+      "horn-beast", "hugger-mugger", "joithead", "lewdster", "lout", "maggot-pie", "malt-worm", "mammet",
+      "measle", "minnow", "miscreant", "moldwarp", "mumble-news", "nut-hook", "pigeon-egg", "pignut",
+      "puttock", "pumpion", "ratsbane", "scut", "skainsmate", "strumpet", "varlot", "vassal", "whey-face", "wagtail"]
+  },
+
+  recipe: {
+    base: ["cereal", "a single grape", "cold spaghetti", "pancake batter", "instant ramen", "a whole watermelon",
+      "leftover pizza", "toast", "marshmallows", "mashed potatoes"],
+    add: ["pickle juice", "gummy bears", "hot sauce", "whipped cream", "crushed crisps", "maple syrup", "sprinkles",
+      "a pinch of regret", "peanut butter", "an entire lemon", "ketchup", "edible glitter"],
+    method: ["microwave for 3 seconds", "shake vigorously while yelling", "bake at 451°F until philosophical",
+      "freeze overnight, then apologize", "stir counterclockwise 17 times", "blend on the highest setting",
+      "serve immediately to a confused friend", "let it sit and think about what it did"],
+    name: ["Surprise", "Delight", "Mistake", "Special", "Supreme", "Experiment", "Situation", "Fiasco", "Deluxe"]
+  },
+
+  passphraseWords: ["anchor", "banjo", "cactus", "dolphin", "ember", "falcon", "galaxy", "hammock", "igloo",
+    "jigsaw", "kettle", "lantern", "mango", "nebula", "otter", "pepper", "quartz", "rocket", "saddle", "tundra",
+    "umbrella", "velvet", "walrus", "xylophone", "yodel", "zeppelin", "biscuit", "comet", "donut", "falafel",
+    "gecko", "hazel", "island", "jungle", "koala", "lemon", "marble", "noodle", "orbit", "pickle", "radish",
+    "sprout", "tofu", "violin", "waffle", "yeti", "zucchini", "bramble", "cobalt", "drizzle"],
+
+  lorem: {
+    pirate: ["Ahoy", "matey", "shiver me timbers", "walk the plank", "doubloons", "scallywag", "yo-ho-ho",
+      "Davy Jones' locker", "landlubber", "hoist the colors", "buccaneer", "grog", "the seven seas", "cutlass",
+      "parrot", "barnacles", "treasure map", "Jolly Roger", "avast", "port side", "crow's nest"],
+    hipster: ["artisan", "small-batch", "cold brew", "fixie", "vinyl", "kombucha", "sustainable", "craft beer",
+      "avocado toast", "beard oil", "ethically sourced", "pour-over", "typewriter", "mixtape", "flannel",
+      "succulents", "oat milk", "pop-up", "farm-to-table", "vegan leather", "polaroid"],
+    corporate: ["synergy", "leverage", "circle back", "move the needle", "deep dive", "paradigm shift",
+      "low-hanging fruit", "bandwidth", "stakeholders", "actionable insights", "north star", "value add",
+      "touch base", "best practices", "at the end of the day", "scalable", "alignment", "going forward",
+      "take this offline", "quick win", "holistic"]
+  },
+
+  wouldYouRather: [
+    ["fight one horse-sized duck", "fight 100 duck-sized horses"],
+    ["have spaghetti for hair", "sweat maple syrup"],
+    ["only be able to whisper", "only be able to shout"],
+    ["always have to sing instead of speak", "dance everywhere you go"],
+    ["have a rewind button for your life", "have a pause button for your life"],
+    ["know every language", "be able to talk to animals"],
+    ["live without music", "live without movies"],
+    ["be a famous cat", "be an anonymous genius"],
+    ["have fingers as long as your legs", "have legs as long as your fingers"],
+    ["never have to sleep", "never have to eat"],
+    ["be able to fly but only 1 km/h", "run at 200 km/h but only backwards"],
+    ["have unlimited free pizza", "have unlimited free travel"],
+    ["always be 10 minutes late", "always be 20 minutes early"],
+    ["explore space", "explore the deep ocean"],
+    ["have a personal chef", "have a personal chauffeur"],
+    ["sneeze confetti", "hiccup bubbles"]
+  ],
+
+  tarot: [
+    { name: "The Toaster", icon: "zap", meaning: "Something warm is coming. It may be slightly burnt." },
+    { name: "The Lost Sock", icon: "footprints", meaning: "What you seek is behind the dryer of your soul." },
+    { name: "The Wi-Fi", icon: "wifi", meaning: "Your connection to others is strong, but only in the kitchen." },
+    { name: "The Houseplant", icon: "sprout", meaning: "Growth requires patience, light, and occasionally remembering to water." },
+    { name: "The Cat", icon: "cat", meaning: "Someone near you is plotting. Probably the cat." },
+    { name: "The Moon Pie", icon: "moon", meaning: "Sweet mysteries await. Also, snacks." },
+    { name: "The Rubber Duck", icon: "bird", meaning: "Explain your problem aloud. The answer will reveal itself." },
+    { name: "The Traffic Cone", icon: "construction", meaning: "A detour will lead you somewhere unexpectedly nice." },
+    { name: "The Comet", icon: "rocket", meaning: "Big change is inbound. Buckle up." },
+    { name: "The Key", icon: "key-round", meaning: "A locked door will open. Check your other pocket." },
+    { name: "The Crown of Snacks", icon: "crown", meaning: "You deserve a treat. The cards insist." },
+    { name: "The Ghost", icon: "ghost", meaning: "An old idea wants back into your life. Let it in." },
+    { name: "The Anchor", icon: "anchor", meaning: "Stay grounded. Or at least stay near the ground." },
+    { name: "The Dice", icon: "dices", meaning: "Take a chance. Worst case, you get a funny story." },
+    { name: "The Umbrella", icon: "umbrella", meaning: "Prepare for a storm that turns out to be a light drizzle." },
+    { name: "The Pizza", icon: "pizza", meaning: "Sharing brings abundance. Keep one slice for yourself." }
+  ],
+
+  cards: ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
+  suits: ["♠", "♥", "♦", "♣"]
+});
